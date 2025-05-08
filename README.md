@@ -6,7 +6,7 @@
 
 The Agent Performance Analytics Dashboard is a Flask-based web application designed to visualize and analyze agent performance data, risk predictions, and personalized recommendations. This tool helps managers identify at-risk agents, understand key performance factors, and implement targeted interventions to improve agent retention and performance.
 
-![image](https://github.com/user-attachments/assets/86c6b435-78a3-43e4-b03a-795b468a21e7)
+![image](https://github.com/user-attachments/assets/40fce0ee-528d-41b9-b222-e511d6bb4690)
 
 ## Features
 
