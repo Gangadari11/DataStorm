@@ -27,7 +27,7 @@ The Agent Performance Analytics Dashboard is a Flask-based web application desig
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/agent-dashboard.git
+   git clone https://github.com/yourusername/agent-dashboard.git](https://github.com/Gangadari11/DataStorm.git
    cd agent-dashboard
    ```
 
@@ -43,19 +43,20 @@ The Agent Performance Analytics Dashboard is a Flask-based web application desig
    ```
 
 3. Install dependencies:
-   ```bash
+```bash
    pip install -r requirements.txt
 ```
 
 4. Run the application:
+
   ``` bash
-   python app.py
+    python app.py
   ```
 
 5. Open your browser and navigate to:
   ```
    http://127.0.0.1:5000/
-   ```
+  ```
 
 ## Usage Guide
 
