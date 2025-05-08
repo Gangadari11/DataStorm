@@ -1,10 +1,12 @@
+# DataStorm
+
 # Agent Performance Analytics Dashboard
 
 ## Overview
 
 The Agent Performance Analytics Dashboard is a Flask-based web application designed to visualize and analyze agent performance data, risk predictions, and personalized recommendations. This tool helps managers identify at-risk agents, understand key performance factors, and implement targeted interventions to improve agent retention and performance.
 
-![Dashboard Screenshot](/placeholder.svg?height=400&width=800)
+![image](https://github.com/user-attachments/assets/0e055a54-e023-4135-a511-4445108ae5d3)
 
 ## Features
 
@@ -24,13 +26,13 @@ The Agent Performance Analytics Dashboard is a Flask-based web application desig
 ### Setup
 
 1. Clone the repository:
-   \`\`\`bash
-   git clone https://github.com/yourusername/agent-dashboard.git
+   ```bash
+   git clone https://github.com/yourusername/agent-dashboard.git](https://github.com/Gangadari11/DataStorm.git
    cd agent-dashboard
-   \`\`\`
+   ```
 
 2. Create and activate a virtual environment (recommended):
-   \`\`\`bash
+   ```bash
    python -m venv venv
    
    # On Windows
@@ -38,22 +40,17 @@ The Agent Performance Analytics Dashboard is a Flask-based web application desig
    
    # On macOS/Linux
    source venv/bin/activate
-   \`\`\`
+   ```
+3. Run the application:
 
-3. Install dependencies:
-   \`\`\`bash
-   pip install -r requirements.txt
-   \`\`\`
+  ``` bash
+    python app.py
+  ```
 
-4. Run the application:
-   \`\`\`bash
-   python app.py
-   \`\`\`
-
-5. Open your browser and navigate to:
-   \`\`\`
+4. Open your browser and navigate to:
+  ```
    http://127.0.0.1:5000/
-   \`\`\`
+  ```
 
 ## Usage Guide
 
@@ -94,7 +91,7 @@ To generate personalized recommendations:
 
 ## File Structure
 
-\`\`\`
+```
 agent-dashboard/
 ├── app.py                  # Main Flask application
 ├── prepare_features.py     # Feature preparation utilities
@@ -108,7 +105,7 @@ agent-dashboard/
 ├── model/                  # Directory for model artifacts (created on first run)
 ├── data/                   # Directory for data files (created on first run)
 └── requirements.txt        # Python dependencies
-\`\`\`
+```
 
 ## Dependencies
 
@@ -140,9 +137,9 @@ The application creates sample data and model files on first run if they don't e
 
 2. **Port Already in Use**:
    - Change the port in `app.py` if port 5000 is already in use:
-     ```python
+   ```python
      app.run(debug=True, port=5001)
-     \`\`\`
+   ```
 
 3. **Model Prediction Errors**:
    - The application uses a simplified prediction approach if model files are missing or incompatible
@@ -171,3 +168,13 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+![image](https://github.com/user-attachments/assets/547d570a-577f-4f42-b90d-f5648e20de14)
+![image](https://github.com/user-attachments/assets/236925a6-fe01-442b-8a49-4c2ee0e02287)
+![image](https://github.com/user-attachments/assets/bff452ee-1444-41a9-8612-2309289301c6)
+![image](https://github.com/user-attachments/assets/ef86f4f8-807a-449f-bdfb-88d86c25de91)
+![image](https://github.com/user-attachments/assets/ed1c4481-5474-4990-8965-c81b613feae9)
+
+
+
+
