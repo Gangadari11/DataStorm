@@ -137,9 +137,9 @@ The application creates sample data and model files on first run if they don't e
 
 2. **Port Already in Use**:
    - Change the port in `app.py` if port 5000 is already in use:
-     ```python
+   ```python
      app.run(debug=True, port=5001)
-    ```
+   ```
 
 3. **Model Prediction Errors**:
    - The application uses a simplified prediction approach if model files are missing or incompatible
