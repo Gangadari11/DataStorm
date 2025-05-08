@@ -41,19 +41,13 @@ The Agent Performance Analytics Dashboard is a Flask-based web application desig
    # On macOS/Linux
    source venv/bin/activate
    ```
-
-3. Install dependencies:
-```bash
-   pip install -r requirements.txt
-```
-
-4. Run the application:
+3. Run the application:
 
   ``` bash
     python app.py
   ```
 
-5. Open your browser and navigate to:
+4. Open your browser and navigate to:
   ```
    http://127.0.0.1:5000/
   ```
@@ -145,7 +139,7 @@ The application creates sample data and model files on first run if they don't e
    - Change the port in `app.py` if port 5000 is already in use:
      ```python
      app.run(debug=True, port=5001)
-     \`\`\`
+    ```
 
 3. **Model Prediction Errors**:
    - The application uses a simplified prediction approach if model files are missing or incompatible
