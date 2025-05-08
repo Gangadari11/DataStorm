@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Update the title and add a favicon -->
+    <title>Agent Performance Analytics Dashboard</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <!-- Update the sidebar header -->
+                <div class="sidebar-header">
+                    <h3><i class="bi bi-graph-up-arrow"></i> Agent Analytics</h3>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-section="overview">
+                                <i class="bi bi-house-door"></i> Overview
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="agents">
+                                <i class="bi bi-people"></i> Agents
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="predictions">
+                                <i class="bi bi-graph-up"></i> Predictions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="factors">
+                                <i class="bi bi-bar-chart"></i> Key Factors
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-section="recommendations">
+                                <i class="bi bi-lightbulb"></i> Recommendations
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <!-- Overview Section -->
+                <div class="content-section active" id="overview">
+                    <!-- Update the section headers to be more descriptive -->
+                    <h2><i class="bi bi-speedometer2"></i> Performance Overview</h2>
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Update the card titles in the overview section to be more descriptive -->
+                                    <h5 class="card-title">Total Active Agents</h5>
+                                    <h2 class="card-text" id="total-agents">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Update the card titles in the overview section to be more descriptive -->
+                                    <h5 class="card-title">High Risk Agents <i class="bi bi-exclamation-triangle-fill text-danger"></i></h5>
+                                    <h2 class="card-text" id="high-risk-agents">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Update the card titles in the overview section to be more descriptive -->
+                                    <h5 class="card-title">Medium Risk Agents <i class="bi bi-exclamation-circle text-warning"></i></h5>
+                                    <h2 class="card-text" id="medium-risk-agents">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Update the card titles in the overview section to be more descriptive -->
+                                    <h5 class="card-title">Low Risk Agents <i class="bi bi-check-circle-fill text-success"></i></h5>
+                                    <h2 class="card-text" id="low-risk-agents">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Risk Distribution</h5>
+                                    <div id="risk-distribution-chart" style="height: 300px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Performance Classification</h5>
+                                    <div id="performance-distribution-chart" style="height: 300px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Top Factors Affecting Performance</h5>
+                                    <div id="feature-importance-chart" style="height: 400px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Agents Section -->
+                <div class="content-section" id="agents">
+                    <!-- Update the section headers to be more descriptive -->
+                    <h2><i class="bi bi-people-fill"></i> Agent Performance</h2>
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" id="agents-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Agent Code</th>
+                                                    <th>Agent Name</th>
+                                                    <th>Age</th>
+                                                    <th>Tenure (Months)</th>
+                                                    <th>Performance Class</th>
+                                                    <th>Risk Level</th>
+                                                    <th>NILL Probability</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Agents will be loaded here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Predictions Section -->
+                <div class="content-section" id="predictions">
+                    <!-- Update the section headers to be more descriptive -->
+                    <h2><i class="bi bi-graph-up"></i> NILL Risk Predictions</h2>
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Prediction Distribution</h5>
+                                    <div id="prediction-distribution-chart" style="height: 400px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Update the prediction form section to add loading indicators and better feedback -->
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Make a Prediction</h5>
+                                    <form id="prediction-form" class="row g-3">
+                                        <div class="col-md-4">
+                                            <label for="agent_age" class="form-label">Agent Age</label>
+                                            <input type="number" class="form-control" id="agent_age" name="agent_age" required min="18" max="80" value="35">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="tenure_months" class="form-label">Tenure (Months)</label>
+                                            <input type="number" class="form-control" id="tenure_months" name="tenure_months" required min="1" max="240" value="12">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="unique_proposal" class="form-label">Unique Proposals</label>
+                                            <input type="number" class="form-control" id="unique_proposal" name="unique_proposal" required min="0" max="1000" value="20">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="unique_quotations" class="form-label">Unique Quotations</label>
+                                            <input type="number" class="form-control" id="unique_quotations" name="unique_quotations" required min="0" max="1000" value="15">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="unique_customers" class="form-label">Unique Customers</label>
+                                            <input type="number" class="form-control" id="unique_customers" name="unique_customers" required min="0" max="500" value="10">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="proposal_to_quotation_ratio" class="form-label">Proposal to Quotation Ratio</label>
+                                            <input type="number" step="0.01" class="form-control" id="proposal_to_quotation_ratio" name="proposal_to_quotation_ratio" required min="0" max="1" value="0.75">
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="bi bi-lightning-charge"></i> Predict
+                                            </button>
+                                        </div>
+                                    </form>
+                                    
+                                    <div id="prediction-result" class="mt-4" style="display: none;">
+                                        <h5><i class="bi bi-clipboard-data"></i> Prediction Result</h5>
+                                        <div class="alert" id="prediction-alert">
+                                            <p><strong>NILL Probability:</strong> <span id="prediction-probability"></span></p>
+                                            <p><strong>Risk Segment:</strong> <span id="prediction-risk"></span></p>
+                                            <p><strong>Performance Class:</strong> <span id="prediction-performance"></span></p>
+                                        </div>
+                                        <div id="prediction-recommendations">
+                                            <h6><i class="bi bi-list-check"></i> Recommended Actions:</h6>
+                                            <ul id="prediction-actions"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Factors Section -->
+                <div class="content-section" id="factors">
+                    <!-- Update the section headers to be more descriptive -->
+                    <h2><i class="bi bi-bar-chart-fill"></i> Key Performance Factors</h2>
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Feature Importance</h5>
+                                    <!-- Add a loading indicator for charts -->
+                                    <div id="feature-importance-detailed-chart" style="height: 500px; position: relative;">
+                                        <div class="chart-loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            <p class="mt-2">Loading chart data...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Performance Metrics by Class</h5>
+                                    <!-- Add a loading indicator for charts -->
+                                    <div id="metrics-by-performance-chart" style="height: 400px; position: relative;">
+                                        <div class="chart-loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            <p class="mt-2">Loading chart data...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recommendations Section -->
+                <div class="content-section" id="recommendations">
+                    <!-- Update the section headers to be more descriptive -->
+                    <h2><i class="bi bi-lightbulb-fill"></i> Personalized Recommendations</h2>
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Select an Agent</h5>
+                                    <select class="form-select" id="agent-select">
+                                        <option value="">Select an agent...</option>
+                                        <!-- Agents will be loaded here -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4" id="agent-details" style="display: none;">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Agent Profile</h5>
+                                    <div id="agent-profile">
+                                        <p><strong>Agent Code:</strong> <span id="detail-agent-code"></span></p>
+                                        <p><strong>Agent Name:</strong> <span id="detail-agent-name"></span></p>
+                                        <p><strong>Age:</strong> <span id="detail-agent-age"></span></p>
+                                        <p><strong>Tenure:</strong> <span id="detail-agent-tenure"></span> months</p>
+                                        <p><strong>Performance Class:</strong> <span id="detail-performance-class"></span></p>
+                                        <p><strong>Risk Level:</strong> <span id="detail-risk-level"></span></p>
+                                        <p><strong>NILL Probability:</strong> <span id="detail-nill-probability"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Personalized Action Plan</h5>
+                                    <div id="agent-recommendations">
+                                        <h6>Recommended Actions:</h6>
+                                        <ul id="recommendation-list"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4" id="agent-factors" style="display: none;">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Top Factors Affecting This Agent</h5>
+                                    <div id="agent-factors-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Agent Detail Modal -->
+    <div class="modal fade" id="agentDetailModal" tabindex="-1" aria-labelledby="agentDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agentDetailModalLabel">Agent Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Agent Profile</h6>
+                            <div id="modal-agent-profile">
+                                <p><strong>Agent Code:</strong> <span id="modal-agent-code"></span></p>
+                                <p><strong>Agent Name:</strong> <span id="modal-agent-name"></span></p>
+                                <p><strong>Age:</strong> <span id="modal-agent-age"></span></p>
+                                <p><strong>Tenure:</strong> <span id="modal-agent-tenure"></span> months</p>
+                                <p><strong>Performance Class:</strong> <span id="modal-performance-class"></span></p>
+                                <p><strong>Risk Level:</strong> <span id="modal-risk-level"></span></p>
+                                <p><strong>NILL Probability:</strong> <span id="modal-nill-probability"></span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Key Metrics</h6>
+                            <div id="modal-agent-metrics">
+                                <p><strong>Unique Proposals:</strong> <span id="modal-unique-proposals"></span></p>
+                                <p><strong>Unique Quotations:</strong> <span id="modal-unique-quotations"></span></p>
+                                <p><strong>Unique Customers:</strong> <span id="modal-unique-customers"></span></p>
+                                <p><strong>Proposal Intensity:</strong> <span id="modal-proposal-intensity"></span></p>
+                                <p><strong>Quotation Intensity:</strong> <span id="modal-quotation-intensity"></span></p>
+                                <p><strong>Customer Intensity:</strong> <span id="modal-customer-intensity"></span></p>
+                                <p><strong>Proposal to Quotation Ratio:</strong> <span id="modal-proposal-quotation-ratio"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <h6>Top Factors Affecting Performance</h6>
+                            <div id="modal-agent-factors"></div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <h6>Personalized Action Plan</h6>
+                            <ul id="modal-recommendation-list"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
